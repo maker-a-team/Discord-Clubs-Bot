@@ -1,0 +1,29 @@
+{
+    "name": "ms_clubs_bot",
+    "displayName": "MS Clubs Bot",
+    "version": "1.0.0",
+    "description": "Bot Made To Handle Automation OF Make School Students Club Involvement",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "MS",
+        "ms",
+        "MAKE",
+        "Make",
+        "make",
+        "SCHOOL",
+        "School",
+        "school",
+        "CLUBS",
+        "Clubs",
+        "clubs"
+    ],
+    "author": "Chris Barnes <Chris.Barnes.2000@me.com>",
+    "license": "MIT",
+    "dependencies": {
+        "discord.js": "^12.5.3",
+        "dotenv": "^8.2.0"
+    }
+}
