@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 require("dotenv").config();
 
 const command = require("./command");
+const firstMessage = require("./first-message");
 
 const client = new Discord.Client({
   partials: ["MESSAGE", "REACTION", "CHANNEL"],
@@ -40,6 +41,14 @@ client.on("ready", () => {
       },
     });
   });
+
+  rolesPrompt = `React with one of the emojis to get a role
+    📣  |  News & Announcements Notifications
+    ♟️  |  Chess Club
+    🏹  |  Minecraft Club
+    🎲  |  DnD Club`;
+
+  firstMessage(client, "834052087201136680", rolesPrompt, ["📣", "♟️", "🏹", "🎲"]);
 });
 
 client.login(process.env.BOT_TOKEN);
