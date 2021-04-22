@@ -13,8 +13,16 @@ module.exports = (client, aliases, callback) => {
 
       if (content.startsWith(`${commad} `) || content === commad) {
         console.log(`Running the commmand: ${commad}`);
-        callback(message)
+        callback(message);
       }
     });
+  });
+
+  client.on("messageDelete", (message) => {
+    console.log(`${message.id} was deleted!`);
+    // Partial messages do not contain any content so skip them
+    if (!message.partial) {
+      console.log(`It had content: "${message.content}"`);
+    }
   });
 };
