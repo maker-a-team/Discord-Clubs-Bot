@@ -1,7 +1,7 @@
 // https://github.com/discordjs/discord.js/blob/master/docs/topics/partials.md
 // https://www.smashingmagazine.com/2021/02/building-discord-bot-discordjs/
 
-const { rolesChannel, newsRole, chessRole, minecraftRole, dndRole } = require("../config.json");
+const { rolesChannelID, newsRole, chessRole, minecraftRole, dndRole } = require("../config.json");
 
 module.exports = (client) => {
   // Adding reaction-role function
@@ -11,7 +11,7 @@ module.exports = (client) => {
     // You should account for any errors while fetching, it could return API errors if the resource is missing
     if (reaction.message.partial) await reaction.message.fetch();
     // Now the message has been cached and is fully available:
-    // console.log(`${reaction.message.author}'s message "${reaction.message.content}" gained a reaction!`);
+    // console.log(`${reaction.message.author.username}'s message gained a reaction! \n"${reaction.message.content}"`);
     // Fetches and caches the reaction itself, updating resources that were possibly defunct.
     if (reaction.partial) await reaction.fetch();
     // Now the reaction is fully available and the properties will be reflected accurately:
@@ -20,20 +20,21 @@ module.exports = (client) => {
     if (user.bot) return;
     if (!reaction.message.guild) return;
 
-    if (reaction.message.channel.id == rolesChannel) {
-      if (reaction.emoji.name === "📣") {
-        await reaction.message.guild.members.cache.get(user.id).roles.add(newsRole);
+    if (reaction.message.channel.id == rolesChannelID) {
+      const userReaction = reaction.message.guild.members.cache.get(user.id);
+      switch (reaction.emoji.name) {
+        case "📣":
+          await userReaction.roles.add(newsRole);
+        case "♟️":
+          await userReaction.roles.add(chessRole);
+        case "🏹":
+          await userReaction.roles.add(minecraftRole);
+        case "🎲":
+          await userReaction.roles.add(dndRole);
+        default:
+          return;
       }
-      if (reaction.emoji.name === "♟️") {
-        await reaction.message.guild.members.cache.get(user.id).roles.add(chessRole);
-      }
-      if (reaction.emoji.name === "🏹") {
-        await reaction.message.guild.members.cache.get(user.id).roles.add(minecraftRole);
-      }
-      if (reaction.emoji.name === "🎲") {
-        await reaction.message.guild.members.cache.get(user.id).roles.add(dndRole);
-      }
-    } else return;
+    }
   });
 
   // Removing reaction roles
@@ -43,19 +44,18 @@ module.exports = (client) => {
     if (user.bot) return;
     if (!reaction.message.guild) return;
 
-    if (reaction.message.channel.id == rolesChannel) {
-      if (reaction.emoji.name === "📣") {
-        await reaction.message.guild.members.cache.get(user.id).roles.remove(newsRole);
-      }
-      if (reaction.emoji.name === "♟️") {
-        await reaction.message.guild.members.cache.get(user.id).roles.remove(chessRole);
-      }
-      if (reaction.emoji.name === "🏹") {
-        await reaction.message.guild.members.cache.get(user.id).roles.remove(minecraftRole);
-      }
-      if (reaction.emoji.name === "🎲") {
-        await reaction.message.guild.members.cache.get(user.id).roles.remove(dndRole);
-      }
-    } else return;
+    const userReaction = reaction.message.guild.members.cache.get(user.id);
+    switch (reaction.emoji.name) {
+      case "📣":
+        await userReaction.roles.remove(newsRole);
+      case "♟️":
+        await userReaction.roles.remove(chessRole);
+      case "🏹":
+        await userReaction.roles.remove(minecraftRole);
+      case "🎲":
+        await userReaction.roles.remove(dndRole);
+      default:
+        return;
+    }
   });
 };

@@ -1,7 +1,8 @@
 {
     "prefix": "ms!",
-    "rolesChannel": "834052643664035861",
-    "testChannel": "834052087201136680",
+    "rolesChannelID": "834052643664035861",
+    "rolesMessageID": "834940234134978581",
+    "testChannelID": "834052087201136680",
     "newsRole": "834093123746922506",
     "chessRole": "834055263413075968",
     "minecraftRole": "834055167347261460",

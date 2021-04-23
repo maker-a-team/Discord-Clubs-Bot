@@ -8,7 +8,7 @@ const rolesMessageListener = require("./listeners/reactions");
 const deletedMessageListener = require("./listeners/delete-message");
 const privateMessageListener = require("./listeners/private-message");
 
-const { rolesChannel } = require("./config.json");
+const { rolesChannelID, rolesMessageID } = require("./config.json");
 
 const client = new Discord.Client({
   partials: ["MESSAGE", "REACTION", "CHANNEL"],
@@ -28,7 +28,7 @@ client.on("ready", () => {
     🏹  |  Minecraft Club
     🎲  |  DnD Club`;
 
-  rolesMessage(client, rolesChannel, rolesPrompt, ["📣", "♟️", "🏹", "🎲"]);
+    rolesMessage(client, rolesChannelID, rolesMessageID, rolesPrompt, ["📣", "♟️", "🏹", "🎲"]);
 
   //   COMMANDS
   command(client, "servers", (message) => {
@@ -56,6 +56,53 @@ client.on("ready", () => {
         type: 0,
       },
     });
+  });
+
+  command(client, "embed", (message) => {
+    const logo = "";
+    const embed = new Discord.MessageEmbed()
+      .setTitle("Make School Courses")
+      .setURL("https://makeschool.com/")
+      .setAuthor(message.author.username)
+      .setImage(logo)
+      .setThumbnail(logo)
+      .setFooter("This is a footer", logo)
+      .setColor("#00AAFF")
+
+      .addFields(
+        {
+          name: "CS",
+          value: "https://make.sc/CS1.0",
+          inline: true,
+        },
+        {
+          name: "DS",
+          value: "https://make.sc/DS1.0",
+          inline: true,
+        },
+        {
+          name: "BEW",
+          value: "https://make.sc/BEW1.0",
+          inline: true,
+        },
+        {
+          name: "SPD",
+          value: "https://make.sc/SPD1.0",
+          inline: true,
+        },
+        {
+          name: "MOB",
+          value: "https://make.sc/MOB1.0",
+          inline: true,
+        },
+        {
+          name: "FEW",
+          value: "https://make.sc/FEW1.0",
+          inline: true,
+        }
+      );
+
+    message.channel.send(embed);
   });
 });
 
