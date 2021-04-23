@@ -4,6 +4,7 @@ require("dotenv").config();
 const command = require("./utils/command");
 const rolesMessage = require("./utils/roles-message");
 
+const welcomeMessageListener = require("./listeners/welcome");
 const rolesMessageListener = require("./listeners/reactions");
 const deletedMessageListener = require("./listeners/delete-message");
 const privateMessageListener = require("./listeners/private-message");
@@ -18,6 +19,7 @@ client.on("ready", () => {
   console.log("\nMS CLUBS Bot is ready\n\n");
 
   //   LISTENERS
+  welcomeMessageListener(client);
   deletedMessageListener(client);
   rolesMessageListener(client);
   privateMessageListener(client, "upcoming dates", "Checkout https://make.sc/academic-calendar");
