@@ -28,13 +28,34 @@ client.on("ready", () => {
     🏹  |  Minecraft Club
     🎲  |  DnD Club`;
 
-    rolesMessage(client, rolesChannelID, rolesMessageID, rolesPrompt, ["📣", "♟️", "🏹", "🎲"]);
+  rolesMessage(client, rolesChannelID, rolesMessageID, rolesPrompt, ["📣", "♟️", "🏹", "🎲"]);
 
   //   COMMANDS
-  command(client, "servers", (message) => {
+  command(client, ["si", "servers", "serverInfo"], (message) => {
     client.guilds.cache.forEach((guild) => {
       //   console.log(guild);
-      message.channel.send(`${guild.name} has a totoal of ${guild.memberCount} members`);
+      const { name, region, memberCount, owner, afkTimeout } = guild;
+      const icon = guild.iconURL();
+      const embed = new Discord.MessageEmbed()
+        .setTitle(`"${name}" Server Info`)
+        .setThumbnail(icon)
+        .setFooter(`Owner: ${owner.user.tag}`)
+        .addFields(
+          {
+            name: "Region",
+            value: region,
+          },
+          {
+            name: "Members",
+            value: memberCount,
+          },
+          {
+            name: "AFK Timeout",
+            value: afkTimeout / 60,
+          }
+        );
+
+      message.channel.send(embed);
     });
   });
 
