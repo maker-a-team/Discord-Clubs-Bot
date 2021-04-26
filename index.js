@@ -6,6 +6,7 @@ const rolesMessage = require("./utils/roles-message");
 
 const welcomeMessageListener = require("./listeners/welcome");
 const rolesMessageListener = require("./listeners/reactions");
+const membersCountListener = require("./listeners/member-count");
 const deletedMessageListener = require("./listeners/delete-message");
 const privateMessageListener = require("./listeners/private-message");
 
@@ -22,6 +23,7 @@ client.on("ready", () => {
   welcomeMessageListener(client);
   deletedMessageListener(client);
   rolesMessageListener(client);
+  membersCountListener(client);
   privateMessageListener(client, "upcoming dates", "Checkout https://make.sc/academic-calendar");
 
   rolesPrompt = `React with one of the emojis to get a role
