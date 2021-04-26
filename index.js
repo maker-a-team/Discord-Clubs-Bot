@@ -12,11 +12,22 @@ const privateMessageListener = require("./listeners/private-message");
 
 const { rolesChannelID, rolesMessageID } = require("./config.json");
 
+const mongo = require("./database/mongo");
+
 const client = new Discord.Client({
   partials: ["MESSAGE", "REACTION", "CHANNEL"],
 });
 
-client.on("ready", () => {
+client.on("ready", async () => {
+  await mongo().then((mongoose) => {
+    try {
+      console.log("Connected to Mongo!");
+    } finally {
+      mongoose.connection.close();
+      console.log("disconnected from Mongo!");
+    }
+  });
+
   console.log("\nMS CLUBS Bot is ready\n\n");
 
   //   LISTENERS
